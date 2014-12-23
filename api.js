@@ -24,12 +24,26 @@ router.get(/\/articles/, function(req, res, info) {
         } else {
             responder(res).code(200).json([]);
         }
-
-
     });
 
-    connection.end();
+   // connection.end();
 });
+
+router.get(/\/article\/(.+)?/, function(req, res, info) {
+    // res.end('Getting all the articles'); return;
+    var ID = info.match[1];
+console.log(ID);
+    connection.query('SELECT  * from article where id =?',[ID], function(err, rows,fields) {
+        if(!err) {
+            responder(res).code(200).json(rows);
+        } else {
+            console.log(err.code);
+            responder(res).code(200).json([]);
+        }
+    });
+   // connection.end();
+});
+
 
 http.createServer(router.process).listen('9000', '127.0.0.1');
 console.log('API listening');

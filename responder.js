@@ -10,6 +10,7 @@ module.exports = function(res) {
         },
         json: function(o) {
             res.writeHead(this.c, {'Content-Type': 'application/json; charset=utf-8'});
+            res.writeHead(this.c, {'Access-Control-Allow-Origin': '*'});
             return this.send(JSON.stringify(o));
         },
         html: function(content) {
